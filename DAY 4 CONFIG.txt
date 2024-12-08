@@ -1,0 +1,209 @@
+net use \\10.21.1.10\ipc$
+net use x: /delete
+net use x: \\10.21.1.10\c$
+
+
+*********************
+
+BLOCK SPECIFIC WEBSITE
+
+config t
+	NO ip access-list standard NOSCHOOL
+	ip access-list standard NOSCHOOL
+	DENY 104.22.37.0 0.0.255.255
+	DENY 50.6.160.0 0.0.255.255
+	DENY 184.168.125.0 0.0.255.255
+	DENY 155.137.92.0 0.0.255.255
+	Permit Any
+	
+	Int Gi 1
+	ip access-group NOSCHOOL in
+ end
+ 
+ 
+ ************************
+ 
+ ping www.cavs.com
+ ping www.lakers.com
+ ping www.bulls.com
+ ping www.mavs.com
+ ping www.nets.com
+ ping www.knicks.com
+ 
+ 
+ config t
+	NO ip access-list standard NOGAMBLING
+	ip access-list standard NOGAMBLING
+	DENY 184.28.218.0 0.0.255.255
+	DENY 75.2.114.0 0.0.255.255
+	DENY 99.83.183.0 0.0.255.255
+	DENY 192.124.249.0 0.0.255.255
+	DENY 65.19.58.0 0.0.255.255
+	DENY 136.239.168.0 0.0.255.255
+	Permit Any
+	
+	Int Gi 1
+	ip access-group NOGAMBLING in
+ end
+ 
+ !Disable Rule 
+ config t
+  	Int Gi 1
+	no ip access-group NOGAMBLING in
+ end
+ 
+ ************************
+ 
+ www.thepiratebay.org
+ www.yts.mx
+ www.torrentfreak.com
+ 
+ config t
+	NO ip access-list standard NOTORRENT
+	ip access-list standard NOTORRENT
+	DENY 162.159.136.0 0.0.255.255
+	DENY 104.31.16.0 0.0.255.255
+	DENY 104.26.8.0 0.0.255.255
+	Permit Any
+	
+	Int Gi 1
+	ip access-group NOTORRENT in
+ end
+ 
+  !Disable Rule 
+ config t
+  	Int Gi 1
+	no ip access-group NOTORRENT in
+ end
+ 
+ ************************
+ 
+ Firewall Profile Ex 1 : use ExtendedAcl vs NamedExtendedAcl
+ 
+ Ex 1: You are the admin for pogo sites:
+ www.web311.com open only 80(http), 443 (https), ping
+ www.web310.com open only 53(dns), 443 (https), 22 (ssh) ==> 5 lines:
+ 
+ GOLDEN FIREWALL FORMULA: paloalto, fortinet, cisco. checkpoint.
+ 
+ protocol			hacker			victim					port
+ tcp,udp,icmp,IP	Any				web310, web311
+ 
+ 
+ config t
+	service timestamps log datetime
+	service timestamps debug datetime
+	logging 10.22.1.10
+	logging trap 5
+	NO IP access-list Extended FWP1
+	IP access-list Extended FWP1
+	Permit tcp Any host www.web310.com eq 80 log
+	Permit tcp Any host www.web310.com eq 443 log
+	Permit icmp Any host www.web310.com log
+	Permit tcp Any host www.web311.com eq 53 log
+	Permit tcp Any host www.web311.com eq 443 log
+	Permit tcp Any host www.web311.com eq 22 log
+	Int Gi 3
+		ip access-group FWP1 in
+		
+	
+
+config t
+	Int Gi 3
+		no ip access-group FWP1 in
+		
+		
+telnet 192.168.103.11 19
+	
+	
+ip access-lists FWP1
+	
+ 
+ *********************************
+ 
+ Ex 2 
+  
+www.web310.com open only ssh, dns, http
+www.web311.com open only telnet, ssh, https, ping/icmp
+
+ config t
+	service timestamps log datetime
+	service timestamps debug datetime
+	logging 10.22.1.10
+	logging trap 5
+	NO IP access-list Extended FWP2
+	IP access-list Extended FWP2
+	Permit tcp Any host www.web310.com eq 22 log
+	Permit tcp Any host www.web310.com eq 53 log
+	Permit tcp Any host www.web310.com eq 80 log
+	
+	Permit tcp Any host www.web311.com eq 23 log
+	Permit tcp Any host www.web311.com eq 443 log
+	Permit tcp Any host www.web311.com eq 22 log
+	Permit icmp Any host www.web311.com log
+	
+	Int Gi 3
+		ip access-group FWP2 in
+		
+ 
+ *****************************************
+ 
+ www.web310.com open only 443
+ www.web311.com open only ping
+ 
+ 
+ config t
+ 	service timestamps log datetime
+	service timestamps debug datetime
+	logging 10.22.1.10
+	logging trap 5
+	NO IP access-list Extended PRANING3
+	IP access-list Extended PRANING3
+	Permit tcp Any host www.web310.com eq 443 log
+	Permit icmp Any host www.web311.com log
+int Gi 3
+	ip access-group PRANING3 in
+	
+********************************************
+
+ www.web310.com open only ping, dns
+ www.web310.com open only ping, ssh
+ 
+ config t
+	service timestamps log datetime
+	service timestamps debug datetime
+	logging 10.22.1.10
+	logging trap 5
+	NO IP access-list Extended PRANING4
+	IP access-list Extended PRANING4
+	Permit tcp Any host www.web310.com eq 53 log
+	Permit icmp Any host www.web310.com log
+	Permit tcp Any host www.web311.com eq 22 log
+	Permit icmp Any host www.web311.com log
+
+int Gi 3
+	ip access-group PRANING4 in
+	
+**********************************
+
+
+GIVE IP IN LINUX
+
+network address translation: NAT Give internet to entire companies/buildings
+
+@Linux BLDG 2
+
+sudo su
+ifconfig eth0 192.168.102.100 netmask 255.255.255.0 up
+route add default gw 192.168.102.11
+ping 192.168.102.11
+
+@Linux BLDG 2
+
+sudo su
+ifconfig eth0 192.168.103.100 netmask 255.255.255.0 up
+route add default gw 192.168.103.11
+ping 192.168.103.11
+
+	
+ 
