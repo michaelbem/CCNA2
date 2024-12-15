@@ -227,7 +227,8 @@ sh spanning-tree vlan 1
 TASK3: EXPENSIVE SWITCH/MANAGEABLE SWITCH:\ = 20k
 1. mac address learning": sh mac address-table
 2  mac address filtering
-3  mac address forwaring
+3  mac address forwaring, switch FullDuplex = 2x Speed = 1g ---> 2gbps
+					wifi7 46gbps vs switch 10gbps, switch wins!
 4  Php: loop avoidance
 5. $$: Vlan Feature $$ = 60k up
 
@@ -283,7 +284,7 @@ SuperMan: 802.1s: MiSTP
 
 TASK8: ACCESS PORTS VS TRUNK PORTS: lab mo sa exam.
 Trunk Ports: switch to switch:
-TAAS/BABA:
+TAAS/BABA: Trunking a VLAN!
 config t
 Int Range fa0/10-12
  shutdown
@@ -298,6 +299,7 @@ Dot1q = Qupid,mave switches love each other:
 TASK9: SPANNING-TREE PROTOCOL: 802.1D: protect switches Slowly.
 blk-lis-lrn-fwd = 30 seconds.
 wireshark = bridge priority is 32768 = very Hackable!
+	if 24576 = HighLyQ, Magaling, Malupet
 " bobo/inutil ang Network Engineer nyo sa company!"
 Protect the Most Important SWitch in your 
 Office: RootBridge = TAAS, 2ndRootBridge = BABA:
@@ -358,7 +360,7 @@ end
 #sh int status err-disabled 
 TAAS: bounce/UP/down, bring BACK TO LIFE.
 config t
-int fa 0/1
+int fa 0/7
  shut
  no shut
 int fa 0/3
