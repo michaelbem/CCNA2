@@ -1,0 +1,306 @@
+
+2r3 = 8
+000
+001
+010
+011
+100
+101
+110
+111
+
+2r4 = 16
+0000
+
+*********************
+
+accenture is network using acad:acad:dace:dace::/64, subnet to 50 offices
+
+C - convert = 50 offices is 6 bits
+A - Addto/ = /64 + /6 = /70
+I - iChambaMo = 
+
+		8	4	2	1	|	8	4	2	1	|	8	4	2	1	|	8	4	2	1
+1st		0	0	0	0		0	0
+= acad
+
+
+2nd		0	0	0	0		0	1
+3rd		0	0	0	0		1	0
+
+4th		0	0	0	0		1	1
+5th		0	0	0	1		0	0
+
+*************************
+
+sykes is network using acad:acad:dace:dace::/64, subnet to 350 offices
+
+C - convert = 350 offices is 9 bits
+A - Addto/ = /64 + /9 = /73
+I - iChambaMo =  
+		8	4	2	1	|	8	4	2	1	|	8	4	2	1	|	8	4	2	1
+		
+1st		0	0	0	0		0	0	0	0		0 :
+2nd		0	0	0	0		0	0	0	0		1
+3rd		0	0	0	0		0	0	0	1		0
+4th		0	0	0	0		0	0	0	1		1
+5th		0	0	0	0		0	0	1	0		0
+6th		0	0	0	0		0	0	1	0		1
+
+***************************************************
+
+
+sykes is network using acad:acad:dace:dace::/64, subnet to 1500 offices
+
+C - convert = 1500 offices is 11 bits
+A - Addto/ = /64 + /11 = /75
+I - igetpattern =  
+		8	4	2	1	|	8	4	2	1	|	8	4	2	1	|	8	4	2	1
+1st 	0	0	0	0		0	0	0	0		0	0	0 	:0000
+2nd		0	0	0	0		0	0	0	0		0	0	1	:0020
+3rd		0	0	0	0		0	0	0	0		0	1	0
+4th		0	0	0	0		0	0	0	0		0	1	1
+5th		0	0	0	0		0	0	0	0		1	0	0
+6th		0	0	0	0		0	0	0	0		1	0	1
+7th		0	0	0	0		0	0	0	0		1	1	0
+8th		0	0	0	0		0	0	0	0		1	1	1
+9th		0	0	0	0		0	0	0	1		0	0	0
+
+***************************************************
+
+telus is network using acad:acad:dace:dace::/64, subnet to 210 offices
+
+C - convert = 210 offices is 8 bits
+A - Addto/ = /64 + /8 = /72
+I - igetpattern = 
+
+		8	4	2	1	|	8	4	2	1	|	8	4	2	1	|	8	4	2	1
+1st 	0	0	0	0		0	0	0	0 : 0000
+2nd 	0	0	0	0		0	0	0	1 : 0100
+3rd 	0	0	0	0		0	0	1	0 : 0200
+4th 	0	0	0	0		0	0	1	1 : 0300
+5th 	0	0	0	0		0	1	0	0 : 0400
+6th 	0	0	0	0		0	1	0	1 : 0500
+7th 	0	0	0	0		0	1	1	0 : 0600
+8th 	0	0	0	0		0	1	1	1 : 0700
+9th 	0	0	0	0		1	0	0	0 : 0800
+
+
+How to configure
+@EDGE
+config t
+	ipv6 unicast-routing
+	int loopback0
+		ipv6 add acad:acad:dace:dace:0000::aaaa/72
+	int loopback1
+		ipv6 add acad:acad:dace:dace:0100::aaaa/72
+	int loopback2
+		ipv6 add acad:acad:dace:dace:0200::aaaa/72
+	int loopback3
+		ipv6 add acad:acad:dace:dace:0300::aaaa/72
+	int loopback4
+		ipv6 add acad:acad:dace:dace:0400::aaaa/72
+	int loopback5
+		ipv6 add acad:acad:dace:dace:0500::aaaa/72
+end
+
+***************************************************
+
+vxi is network using acad:acad:dace:dace::/64, subnet to 5 offices
+
+C - convert = 5 offices is 3 bits
+A - Addto/ = /64 + /3 = /67
+I - igetpattern = 
+
+		8	4	2	1	|	8	4	2	1	|	8	4	2	1	|	8	4	2	1
+1st		0	0	0 : 0000
+2nd		0	0	1 : 2000
+3rd		0	1	0 : 4000
+4th		0	1	1 : 6000
+5th		1	0	0 : 8000
+6th		1	0	1 : a000
+
+config t
+	ipv6 unicast-routing
+	int loopback0
+		ipv6 add baba:bebe:baba:bebe:0000::aaaa/67
+	int loopback1
+		ipv6 add baba:bebe:baba:bebe:2000::aaaa/67
+	int loopback2
+		ipv6 add baba:bebe:baba:bebe:4000::aaaa/67
+	int loopback3
+		ipv6 add baba:bebe:baba:bebe:6000::aaaa/67
+	int loopback4
+		ipv6 add baba:bebe:baba:bebe:8000::aaaa/67
+	int loopback5
+		ipv6 add baba:bebe:baba:bebe:a000::aaaa/67
+end
+
+Possible Lab sa exam!
+
+**********************************
+
+ciscoacad.com is network using aaaa:bbbb:cccc::/32, subnet to 100 offices
+
+C - convert = 100 offices is 7 bits
+A - Addto/ = /32 + /7 = /39
+I - igetpattern = 
+
+		8	4	2	1	|	8	4	2	1	|	8	4	2	1	|	8	4	2	1
+1st		0	0	0	0		0	0	0 : 0000
+2nd		0	0	0	0		0	0	1 : 0200
+3rd		0	0	0	0		0	1	0 : 0400
+4th		0	0	0	0		0	1	1 : 0600
+5th		0	0	0	0		1	0	0 : 0800
+6th		0	0	0	0		1	0	1 : 0a00
+
+
+config t
+	ipv6 unicast-routing
+	int loopback0
+		ipv6 add aaaa:bbbb:cccc:0000::aaaa/39
+	int loopback1
+		ipv6 add aaaa:bbbb:cccc:0200::aaaa/39
+	int loopback2
+		ipv6 add aaaa:bbbb:cccc:0400::aaaa/39
+	int loopback3
+		ipv6 add aaaa:bbbb:cccc:0600::aaaa/39
+	int loopback4
+		ipv6 add aaaa:bbbb:cccc:0800::aaaa/39
+	int loopback5
+		ipv6 add aaaa:bbbb:cccc:0a00::aaaa/39
+end
+
+
+
+spanning-tree vlan 1-100 priority 0
+
+*****************************
+
+802.1x (Port Security)
+
+@Coretaas
+config t
+	int f0/2
+		switchport mode access
+		switchport port-security mac-address sticky
+		switchport port-security maximum 1
+		switchport port-security violation shutdown
+end
+sh port-security address
+sh int status err-disable
+
+**************************
+
+conf t
+	int range f0/6, f0/8
+	shut
+	no shut
+end
+
+*************************
+
+802.1s (Multi instance Spanning Tree)
+
+@TAAS
+conf t
+	vlan 11-19
+exit
+	vlan 21-29
+exit
+	vlan 31-39
+end
+sh vlan brief
+
+@TAAS/BABA
+conf t
+	spanning-tree mode mst
+	spanning-tree mst configuration
+	name supermanstp
+	revision 1
+		Instance 1 vlan 11-19
+		Instance 2 vlan 21-29
+		Instance 3 vlan 31-39
+end
+		
+
+sh spanning-tree mst configuration !show running cpu
+
+*********************
+
+ETHERCHANNEL
+!BOTH SWITCHES
+
+@TAAS/BABA
+conf t
+	default interface range f0/1-12
+	int range f0/12-12
+	switchport truck encapsulation dot1q
+	switchport mode trunk
+end
+sh int trunk
+
+
+*********************
+
+@D1/A1 ETHER CHANNEL
+
+config t
+Int Range e0/1-2
+ channel-group 1 mode active
+ channel-protocol Lacp
+ do sh etherchannel summary
+ do sh int po1 | inc BW
+
+!D1 TO A1 ETHER CHANNEL
+
+@D1
+config t
+Int Range e0/0, e0/3
+ channel-group 2 mode active
+ channel-protocol Lacp
+ do sh etherchannel summary
+ do sh int po2 | inc BW
+ 
+@A2
+config t
+Int Range e0/1, e0/2
+ channel-group 2 mode active
+ channel-protocol Lacp
+ do sh etherchannel summary
+ do sh int po2 | inc BW
+ 
+!D1 TO D2 ETHER CHANNEL
+@D1/D2
+config t
+Int Range e1/2, e1/3
+ channel-group 3 mode active
+ channel-protocol Lacp
+ do sh etherchannel summary
+ do sh int po3 | inc BW
+ 
+!D2 TO A1 ETHER CHANEL
+@D2
+config t
+Int Range e0/1-2
+ channel-group 1 mode active
+ channel-protocol Lacp
+ do sh etherchannel summary
+ do sh int po1 | inc BW
+ 
+@A1
+config t
+Int Range e1/0, e0/3
+ channel-group 1 mode active
+ channel-protocol Lacp
+ do sh etherchannel summary
+ do sh int po1 | inc BW
+ 
+!D2 TO A2 ETHER CHANNEL
+@D2/A2
+config t
+Int Range e0/0, e0/3
+ channel-group 2 mode active
+ channel-protocol Lacp
+ do sh etherchannel summary
+ do sh int po2 | inc BW
